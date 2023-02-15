@@ -13,23 +13,23 @@
  *  Install the libraries at Arduino IDE -> Sketch - Include Library -> Add Zip Library
  **********************************************************************************/
 
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 #include <PubSubClient.h>
 
 // Relays
-#define RelayPin1 D1  //D1
-#define RelayPin2 D2  //D2
-#define RelayPin3 D5  //D5
-#define RelayPin4 D6  //D6
+#define RelayPin1 23  //D1
+#define RelayPin2 22  //D2
+#define RelayPin3 21  //D5
+#define RelayPin4 19  //D6
 
 // Switches
-#define SwitchPin1 10  //SD3
-#define SwitchPin2 D3   //D3 
-#define SwitchPin3 D7  //D7
-#define SwitchPin4 3   //RX
+#define SwitchPin1 12  //SD3
+#define SwitchPin2 13   //D3 
+#define SwitchPin3 14  //D7
+#define SwitchPin4 15   //RX
 
 //WiFi Status LED
-#define wifiLed    D0   //D0
+#define wifiLed    0   //D0
 
 int toggleState_1 = 1; //Define integer to remember the toggle state for relay 1
 int toggleState_2 = 1; //Define integer to remember the toggle state for relay 2
@@ -38,24 +38,23 @@ int toggleState_4 = 1; //Define integer to remember the toggle state for relay 4
 
 // Update these with values suitable for your network.
 
-const char* ssid = "WiFi Name"; //WiFI Name
-const char* password = "WiFi Password"; //WiFi Password
-const char* mqttServer = "iot.reyax.com";
-const char* mqttUserName = "Reyax_UserID"; // MQTT username
-const char* mqttPwd = "Reyax_Password"; // MQTT password
-const char* clientID = "EspClient00002"; // client id
+const char* ssid = "RVR 2,4GHz"; //WiFI Name
+const char* password = "RodrigoValRobson2021"; //WiFi Password
+const char* mqttServer = "broker.hivemq.com";
+int mqttPort = 1883;
+const char* mqttUserName = ""; // MQTT username
+const char* mqttPwd = ""; // MQTT password
+const char* clientID = "ESP32ClientGoogleAssistant"; // client id
 
+#define sub1 "ESP32-MinhaCasaQuartoRobson/Lampada/LigarLampadaQuartoRobson"
+#define sub2 "ESP32-MinhaCasaQuartoKinha/Lampada/LigarLampadaQuartoKinha"
+#define sub3 "ESP32-MinhaCasaQuartoVal/Lampada/LigarLampadaQuartoVal"
+#define sub4 "ESP32-MinhaCasaCozinha/Lampada/LigarLampadaCozinha"
 
-#define sub1 "switch1"
-#define sub2 "switch2"
-#define sub3 "switch3"
-#define sub4 "switch4"
-
-#define pub1 "switch1_status"
-#define pub2 "switch2_status"
-#define pub3 "switch3_status"
-#define pub4 "switch4_status"
-
+#define pub1 "ESP32-MinhaCasaQuartoRobson/Lampada/LigarLampadaQuartoRobson"
+#define pub2 "ESP32-MinhaCasaQuartoKinha/Lampada/LigarLampadaQuartoKinha"
+#define pub3 "ESP32-MinhaCasaQuartoVal/Lampada/LigarLampadaQuartoVal"
+#define pub4 "ESP32-MinhaCasaCozinha/Lampada/LigarLampadaCozinha"
 
 WiFiClient espClient;
 PubSubClient client(espClient);
